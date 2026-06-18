@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Jeju — Pick Your Look</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E9E7E2;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    padding: 40px 20px 80px;
+  }
+  .page-head { max-width: 880px; margin: 0 auto 36px; text-align: center; }
+  .page-head h1 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; margin-bottom: 10px; }
+  .page-head p { font-size: 16px; color: #555; max-width: 620px; margin: 0 auto; }
+  .page-head .hint { margin-top: 16px; font-size: 14px; color: #777; }
+
+  .deck { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+
+  .card {
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  .card-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px; font-size: 13px; letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .card-head .num { font-weight: 600; }
+  .card-head .tag { opacity: 0.75; }
+
+  .hero { padding: 52px 48px 40px; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 20px; display: inline-block;
+  }
+  .hero h2 { font-size: 46px; line-height: 1.05; margin-bottom: 18px; font-weight: 600; }
+  .hero .sub { font-size: 18px; max-width: 480px; margin-bottom: 30px; }
+  .btn-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 15px 30px; border-radius: 100px;
+    font-weight: 600; font-size: 16px; text-decoration: none;
+  }
+  .link { font-weight: 600; font-size: 16px; text-decoration: none; }
+
+  .meta { padding: 26px 48px 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  .swatches { display: flex; gap: 12px; }
+  .swatch { text-align: center; }
+  .chip { width: 56px; height: 56px; border-radius: 14px; border: 1px solid rgba(0,0,0,0.08); margin-bottom: 7px; }
+  .swatch span { font-size: 11px; opacity: 0.7; font-family: 'Inter', sans-serif; letter-spacing: 0.02em; }
+  .fonts { font-size: 14px; line-height: 1.9; }
+  .fonts strong { font-weight: 600; }
+  .fonts .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.55; display: block; margin-bottom: 2px; }
+
+  /* ---- Direction 1 — Jeju Warmth ---- */
+  .t1 { background: #FBF6EC; color: #23201B; }
+  .t1 .card-head { background: #F3EAD8; color: #23201B; }
+  .t1 .eyebrow { color: #E25822; }
+  .t1 .hero h2 { font-family: 'Fraunces', serif; color: #23201B; }
+  .t1 .hero .sub { color: #6B6353; }
+  .t1 .btn { background: #23201B; color: #FBF6EC; }
+  .t1 .link { color: #1F5C5A; }
+  .t1 .meta { border-top: 1px solid rgba(35,32,27,0.08); }
+
+  /* ---- Direction 2 — Studio Bold ---- */
+  .t2 { background: #FFFFFF; color: #0F0F11; }
+  .t2 .card-head { background: #F4F4F5; color: #0F0F11; }
+  .t2 .eyebrow { color: #4F46E5; }
+  .t2 .hero h2 { font-family: 'Space Grotesk', sans-serif; color: #0F0F11; letter-spacing: -0.02em; }
+  .t2 .hero .sub { color: #6B6B70; }
+  .t2 .btn { background: #4F46E5; color: #FFFFFF; }
+  .t2 .link { color: #4F46E5; }
+  .t2 .meta { border-top: 1px solid rgba(15,15,17,0.08); }
+
+  /* ---- Direction 3 — Soft Editorial ---- */
+  .t3 { background: #FAF7F4; color: #2B2333; }
+  .t3 .card-head { background: #F1EBE6; color: #2B2333; }
+  .t3 .eyebrow { color: #E0564F; }
+  .t3 .hero h2 { font-family: 'Bricolage Grotesque', sans-serif; color: #2B2333; }
+  .t3 .hero .sub, .t3 .fonts, .t3 .meta { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .t3 .hero .sub { color: #7A7286; }
+  .t3 .btn { background: #FF6B6B; color: #2B2333; }
+  .t3 .link { color: #C8821F; }
+  .t3 .meta { border-top: 1px solid rgba(43,35,51,0.08); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 38px 26px 30px; }
+    .hero h2 { font-size: 33px; }
+    .meta { padding: 24px 26px 32px; gap: 26px; }
+    .card-head { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="page-head">
+    <h1>Three looks for Studio Jeju</h1>
+    <p>Same words, three personalities. Each one is premium and friendly — they just feel different. See which one feels most like <em>you</em>.</p>
+    <p class="hint">Tell me a number — 1, 2, or 3 — or say what you'd like to mix.</p>
+  </div>
+
+  <div class="deck">
+
+    <!-- Direction 1 -->
+    <div class="card t1">
+      <div class="card-head">
+        <span class="num">01 — Jeju Warmth</span>
+        <span class="tag">Warm · boutique · island-inspired</span>
+      </div>
+      <div class="hero">
+        <span class="eyebrow">Studio Jeju — Jeju, South Korea</span>
+        <h2>Design that ships — fast.</h2>
+        <p class="sub">Premium mobile apps and websites for founders. From first idea to launched, without the endless wait.</p>
+        <div class="btn-row">
+          <a href="#" class="btn">Book a call</a>
+          <a href="#" class="link">See our work →</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#FBF6EC"></div><span>Cream</span></div>
+          <div class="swatch"><div class="chip" style="background:#23201B"></div><span>Basalt</span></div>
+          <div class="swatch"><div class="chip" style="background:#E25822"></div><span>Tangerine</span></div>
+          <div class="swatch"><div class="chip" style="background:#1F5C5A"></div><span>Ocean</span></div>
+        </div>
+        <div class="fonts">
+          <span class="label">Headings</span><strong style="font-family:'Fraunces',serif; font-size:18px;">Fraunces</strong><br>
+          <span class="label" style="margin-top:10px;">Body</span><strong>Inter</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction 2 -->
+    <div class="card t2">
+      <div class="card-head">
+        <span class="num">02 — Studio Bold</span>
+        <span class="tag">Modern · confident · gallery-minimal</span>
+      </div>
+      <div class="hero">
+        <span class="eyebrow">Studio Jeju — Jeju, South Korea</span>
+        <h2>Design that ships — fast.</h2>
+        <p class="sub">Premium mobile apps and websites for founders. From first idea to launched, without the endless wait.</p>
+        <div class="btn-row">
+          <a href="#" class="btn">Book a call</a>
+          <a href="#" class="link">See our work →</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><span>White</span></div>
+          <div class="swatch"><div class="chip" style="background:#0F0F11"></div><span>Ink</span></div>
+          <div class="swatch"><div class="chip" style="background:#4F46E5"></div><span>Indigo</span></div>
+          <div class="swatch"><div class="chip" style="background:#F4F4F5"></div><span>Mist</span></div>
+        </div>
+        <div class="fonts">
+          <span class="label">Headings</span><strong style="font-family:'Space Grotesk',sans-serif; font-size:18px;">Space Grotesk</strong><br>
+          <span class="label" style="margin-top:10px;">Body</span><strong>Inter</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direction 3 -->
+    <div class="card t3">
+      <div class="card-head">
+        <span class="num">03 — Soft Editorial</span>
+        <span class="tag">Friendly · soft · approachable premium</span>
+      </div>
+      <div class="hero">
+        <span class="eyebrow">Studio Jeju — Jeju, South Korea</span>
+        <h2>Design that ships — fast.</h2>
+        <p class="sub">Premium mobile apps and websites for founders. From first idea to launched, without the endless wait.</p>
+        <div class="btn-row">
+          <a href="#" class="btn">Book a call</a>
+          <a href="#" class="link">See our work →</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#FAF7F4"></div><span>Linen</span></div>
+          <div class="swatch"><div class="chip" style="background:#2B2333"></div><span>Plum</span></div>
+          <div class="swatch"><div class="chip" style="background:#FF6B6B"></div><span>Coral</span></div>
+          <div class="swatch"><div class="chip" style="background:#FFB454"></div><span>Amber</span></div>
+        </div>
+        <div class="fonts">
+          <span class="label">Headings</span><strong style="font-family:'Bricolage Grotesque',sans-serif; font-size:18px;">Bricolage Grotesque</strong><br>
+          <span class="label" style="margin-top:10px;">Body</span><strong>Plus Jakarta Sans</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

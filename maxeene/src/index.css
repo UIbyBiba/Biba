@@ -1,0 +1,780 @@
+:root {
+  --bg: #edece2;
+  --row: #e8e3d8;
+  --ink: #111111;
+  --ink-soft: #747272;
+  --muted: #989898;
+  --line: rgba(17, 17, 17, 0.14);
+
+  --gutter: clamp(20px, 2.8vw, 40px);
+  --nav-h: clamp(64px, 7vw, 84px);
+
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------- *
+ *  Fixed framework: guide lines, nav, centre film frame              *
+ * ----------------------------------------------------------------- */
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 2400px;
+  margin: 0 auto;
+}
+
+/* Vertical guide rails + the line under the nav, matching Figma */
+.guides {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  max-width: 2400px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+.guides::before,
+.guides::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.guides::before {
+  left: var(--gutter);
+}
+.guides::after {
+  right: var(--gutter);
+}
+
+/* Navigation -------------------------------------------------------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 2400px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  z-index: 50;
+  background: linear-gradient(var(--bg) 60%, rgba(237, 236, 226, 0));
+  mix-blend-mode: normal;
+}
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.brand b {
+  font-weight: 600;
+  font-size: clamp(18px, 1.9vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.brand span {
+  font-weight: 400;
+  font-size: clamp(9px, 0.8vw, 11px);
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.nav-center {
+  font-weight: 600;
+  font-size: clamp(15px, 1.7vw, 26px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: clamp(8px, 1vw, 12px) clamp(14px, 1.4vw, 20px);
+  font-family: inherit;
+  font-size: clamp(13px, 1.1vw, 18px);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+}
+.menu-btn:hover {
+  transform: translateY(-1px);
+}
+.menu-btn .bars {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+}
+.menu-btn .bars i {
+  height: 1.5px;
+  background: var(--bg);
+  width: 100%;
+  display: block;
+}
+
+/* Top-right tagline -------------------------------------------------- */
+.tagline {
+  position: absolute;
+  top: calc(var(--nav-h) + clamp(40px, 8vh, 96px));
+  right: var(--gutter);
+  width: clamp(240px, 26vw, 380px);
+  font-size: clamp(15px, 1.5vw, 22px);
+  line-height: 1.18;
+  z-index: 30;
+}
+
+/* ----------------------------------------------------------------- *
+ *  The fixed centre film frame                                       *
+ * ----------------------------------------------------------------- */
+
+.frame-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 25;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.frame-hint {
+  font-size: clamp(9px, 0.8vw, 11px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.frame-wrap:hover .frame-hint,
+.frame-wrap:focus-visible .frame-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+.frame-wrap .frame {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.frame-wrap:hover .frame {
+  transform: scale(1.02);
+}
+
+.frame {
+  position: relative;
+  width: clamp(210px, 21vw, 400px);
+  aspect-ratio: 2 / 3;
+  padding: clamp(8px, 0.8vw, 12px);
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.frame-inner {
+  position: absolute;
+  inset: clamp(8px, 0.8vw, 12px);
+  overflow: hidden;
+  background: #d8d3c7;
+}
+
+.frame-inner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform, opacity, filter;
+}
+
+/* film grain + scanline overlays */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: grain 0.6s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -2%); }
+  100% { transform: translate(3%, 2%); }
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 26%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* shutter bars (letterbox wipe) */
+.shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 5;
+}
+.shutter.top { top: 0; transform-origin: top; }
+.shutter.bottom { bottom: 0; transform-origin: bottom; }
+
+/* corner timecode HUD on the frame */
+.hud {
+  position: absolute;
+  z-index: 6;
+  font-size: clamp(8px, 0.7vw, 10px);
+  letter-spacing: 0.14em;
+  color: var(--bg);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud.tl { top: calc(clamp(8px, 0.8vw, 12px) + 8px); left: calc(clamp(8px, 0.8vw, 12px) + 8px); }
+.hud.br { bottom: calc(clamp(8px, 0.8vw, 12px) + 8px); right: calc(clamp(8px, 0.8vw, 12px) + 8px); }
+.rec-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e5484d;
+  animation: rec 1.4s steps(1) infinite;
+}
+@keyframes rec {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.15; }
+}
+
+/* ----------------------------------------------------------------- *
+ *  Scrolling film list                                               *
+ * ----------------------------------------------------------------- */
+
+.reel {
+  position: relative;
+  z-index: 20;
+  padding-top: var(--nav-h);
+}
+
+/* spacer so the first/last rows can reach the centre line */
+.spacer {
+  height: 40vh;
+}
+
+.row {
+  position: relative;
+  min-height: 46vh;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--gutter);
+  padding: 0 calc(var(--gutter) + clamp(8px, 2vw, 40px));
+}
+
+.row::before {
+  content: "";
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.row-title {
+  font-family: inherit;
+  color: var(--ink);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(24px, 4.2vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  max-width: 11ch;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.row.active .row-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  text-decoration-thickness: 1px;
+}
+.brand-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  align-items: flex-start;
+  text-align: left;
+  color: var(--ink);
+}
+
+.row-meta {
+  justify-self: end;
+  text-align: right;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.row-quote {
+  font-weight: 500;
+  font-size: clamp(13px, 1.2vw, 18px);
+  color: var(--ink-soft);
+}
+.row-index {
+  font-size: clamp(10px, 0.8vw, 12px);
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.row.inactive .row-title {
+  opacity: 0.32;
+}
+.row.inactive .row-meta {
+  opacity: 0.32;
+}
+.row.active .row-title {
+  opacity: 1;
+}
+
+/* the middle column simply reserves space for the fixed frame */
+.row-gap {
+  width: clamp(210px, 21vw, 400px);
+}
+
+/* inline poster: hidden on large screens (the fixed centre frame is used) */
+.row-poster {
+  display: none;
+  padding: 8px;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  cursor: pointer;
+  width: 64%;
+  max-width: 280px;
+}
+.row-poster img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+/* progress scrubber on the right edge */
+.scrubber {
+  position: fixed;
+  right: calc(var(--gutter) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.scrubber .tick {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+  transition: background 0.4s, height 0.4s;
+}
+.scrubber .tick.on {
+  background: var(--ink);
+  height: 30px;
+}
+
+.footer-note {
+  text-align: center;
+  padding: 8vh 0 10vh;
+  color: var(--muted);
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 20;
+}
+
+@media (max-width: 720px) {
+  /* On phones the fixed centre frame can't share space with the titles,
+     so switch to a clean stacked list: each film shows its own poster. */
+  .frame-wrap,
+  .scrubber {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    justify-items: center;
+    text-align: center;
+    align-content: center;
+    min-height: auto;
+    gap: 18px;
+    padding: clamp(40px, 9vw, 64px) var(--gutter);
+  }
+  .row-poster { display: block; }
+  .row-gap { display: none; }
+
+  .row-title {
+    max-width: none;
+    text-align: center;
+    font-size: clamp(28px, 8vw, 44px);
+  }
+  /* every title is readable on mobile — no centre-line dimming */
+  .row.inactive .row-title,
+  .row.inactive .row-meta {
+    opacity: 1;
+  }
+
+  .row-meta {
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tagline {
+    position: static;
+    width: auto;
+    padding: calc(var(--nav-h) + 24px) var(--gutter) 0;
+  }
+
+  .nav-center { display: none; }
+  .spacer { height: 8vh; }
+}
+
+/* ----------------------------------------------------------------- *
+ *  First-load intro (academy leader countdown)                       *
+ * ----------------------------------------------------------------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.intro-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #0c0c0c;
+}
+.intro-bar.top { top: 0; transform-origin: top; }
+.intro-bar.bottom { bottom: 0; transform-origin: bottom; }
+.intro-center {
+  position: relative;
+  z-index: 2;
+  color: var(--bg);
+  text-align: center;
+}
+.leader {
+  position: relative;
+  width: clamp(120px, 22vw, 200px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+.leader-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ring-track { fill: none; stroke: rgba(237, 236, 226, 0.22); stroke-width: 2; }
+.ring-cross-v,
+.ring-cross-h { stroke: rgba(237, 236, 226, 0.22); stroke-width: 1; }
+.ring-sweep { fill: rgba(237, 236, 226, 0.12); }
+.leader-num {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(48px, 9vw, 92px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--bg);
+}
+.intro-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-transform: uppercase;
+}
+.intro-brand b {
+  font-size: clamp(34px, 7vw, 72px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.intro-brand span {
+  font-size: clamp(10px, 1.2vw, 14px);
+  letter-spacing: 0.4em;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------------- *
+ *  Menu overlay                                                      *
+ * ----------------------------------------------------------------- */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: #0c0c0c;
+  color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 3vw, 40px) var(--gutter);
+}
+.brand.light b { color: var(--bg); }
+.menu-btn.light { background: var(--bg); color: var(--ink); }
+.menu-btn.light .bars i { background: var(--ink); }
+.menu-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.menu-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(2px, 0.5vw, 8px);
+  border-top: 1px solid rgba(237, 236, 226, 0.16);
+  margin-top: clamp(20px, 3vw, 36px);
+}
+.menu-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: clamp(14px, 2vw, 40px);
+  padding: clamp(10px, 1.6vw, 22px) 0;
+  border-bottom: 1px solid rgba(237, 236, 226, 0.16);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: var(--bg);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+}
+.menu-item:hover { padding-left: clamp(8px, 1.4vw, 24px); }
+.menu-item:hover .menu-title { opacity: 1; }
+.menu-num {
+  font-size: clamp(10px, 0.9vw, 13px);
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.menu-title {
+  font-size: clamp(26px, 4.6vw, 64px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.menu-dir {
+  font-size: clamp(11px, 1vw, 15px);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.menu-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(10px, 0.9vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: clamp(16px, 2vw, 28px);
+}
+
+/* ----------------------------------------------------------------- *
+ *  Film detail page                                                  *
+ * ----------------------------------------------------------------- */
+.detail {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--bg);
+  overflow-y: auto;
+  padding: clamp(20px, 4vw, 64px) var(--gutter);
+}
+.detail-close {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  display: block;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  font-family: inherit;
+  font-size: clamp(12px, 1vw, 15px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  cursor: pointer;
+  z-index: 3;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) 1.2fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+  max-width: 1400px;
+  margin: clamp(12px, 4vh, 48px) auto 0;
+  min-height: 70vh;
+}
+.detail-poster {
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  background: #d8d3c7;
+}
+.detail-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.detail-info { max-width: 620px; }
+.detail-eyebrow {
+  display: block;
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: clamp(14px, 2vw, 24px);
+}
+.detail-title {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 92px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.94;
+}
+.detail-quote {
+  font-size: clamp(16px, 1.6vw, 24px);
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin: clamp(14px, 2vw, 22px) 0;
+}
+.detail-synopsis {
+  font-size: clamp(15px, 1.3vw, 19px);
+  line-height: 1.5;
+  max-width: 52ch;
+  margin: 0 0 clamp(24px, 3vw, 36px);
+}
+.detail-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px clamp(20px, 3vw, 48px);
+  margin: 0 0 clamp(28px, 3vw, 40px);
+  max-width: 480px;
+}
+.detail-specs > div { border-top: 1px solid var(--line); padding-top: 10px; }
+.detail-specs dt {
+  font-size: clamp(10px, 0.9vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.detail-specs dd { margin: 0; font-size: clamp(14px, 1.2vw, 18px); font-weight: 500; }
+.detail-cta {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  font-family: inherit;
+  font-size: clamp(14px, 1.1vw, 17px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: clamp(12px, 1.4vw, 18px) clamp(24px, 3vw, 40px);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.detail-cta:hover { transform: translateY(-2px); }
+
+@media (max-width: 860px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .detail-poster { max-width: 320px; }
+  .detail-specs { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .menu-item { grid-template-columns: auto 1fr; }
+  .menu-dir { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+}

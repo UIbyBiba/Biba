@@ -1,0 +1,10 @@
+node_modules/
+dist/
+_studio_site/
+out/
+.DS_Store
+*.log
+.env
+.netlify
+.claude/
+images/source/

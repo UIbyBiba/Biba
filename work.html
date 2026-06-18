@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Studio Jeju | App & web design portfolio</title>
+<meta name="description" content="Selected mobile app design work by Studio Jeju — including STICK, Future, MedLab, Mabe, Sèkèrè Ride and more. Premium design for founders, delivered fast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #FFFFFF; --ink: #0F0F11; --indigo: #4F46E5; --indigo-deep: #3A32C4; --indigo-wash: #EEEDFE;
+  --mist: #F4F4F5; --line: #E6E6E9; --muted: #6B6B70;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --maxw: 1140px; --radius: 16px; --radius-sm: 10px; --radius-pill: 100px; --gutter: 22px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); color: var(--ink); background: var(--paper); line-height: 1.6; font-size: 17px; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.04; letter-spacing: -0.02em; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding: 84px 0; }
+section { scroll-margin-top: 86px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 9px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--indigo); box-shadow: 0 0 0 4px var(--indigo-wash); }
+.section-head { max-width: 640px; margin-bottom: 44px; }
+.section-head h2 { font-size: clamp(2rem, 4.2vw, 3rem); margin: 16px 0 0; }
+.section-head p { color: var(--muted); margin-top: 16px; font-size: 18px; }
+.btn { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-body); font-weight: 600; font-size: 16px; padding: 15px 28px; border-radius: var(--radius-pill); border: 1.5px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s ease, border-color .15s ease; }
+.btn-primary { background: var(--indigo); color: #fff; }
+.btn-primary:hover { background: var(--indigo-deep); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+.btn-light { background: #fff; color: var(--ink); }
+.btn-light:hover { transform: translateY(-2px); }
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.82); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
+.brand .accent { color: var(--indigo); }
+.nav-links { display: flex; align-items: center; gap: 30px; }
+.nav-links a.navlink { font-weight: 500; font-size: 15.5px; color: var(--ink); position: relative; }
+.nav-links a.navlink::after { content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 2px; background: var(--indigo); transition: width .2s ease; }
+.nav-links a.navlink:hover::after, .nav-links a.navlink.active::after { width: 100%; }
+.nav-links a.navlink.active { color: var(--indigo); }
+.nav-cta { display: flex; align-items: center; gap: 16px; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; transition: .25s; }
+.page-hero { padding: 66px 0 46px; border-bottom: 1px solid var(--line); }
+.page-hero .eyebrow { margin-bottom: 18px; }
+.page-hero h1 { font-size: clamp(2.4rem, 5.6vw, 4rem); max-width: 16ch; }
+.page-hero p.lede { font-size: 19px; color: var(--muted); margin-top: 20px; max-width: 580px; }
+.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.proj-card { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--paper); transition: transform .18s ease, box-shadow .18s ease; }
+.proj-card:hover { transform: translateY(-5px); box-shadow: 0 26px 54px -30px rgba(15,15,17,0.32); }
+.proj-card .shot { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center center; background: var(--mist); }
+.proj-meta { padding: 22px 24px 26px; }
+.proj-meta .scope { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--indigo); }
+.proj-meta h3 { font-size: 22px; margin: 9px 0 8px; }
+.proj-meta p { color: var(--muted); font-size: 15px; }
+.banner img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center; border-radius: var(--radius); background: var(--mist); }
+.banner .cap { color: var(--muted); font-size: 16px; margin-top: 16px; max-width: 600px; }
+.banner .cap .eyebrow { display: block; margin-bottom: 8px; }
+.showcase-grid { display: flex; flex-direction: column; align-items: center; gap: 44px; }
+.showcase-item { width: 100%; max-width: 740px; }
+.showcase-item img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--mist); }
+.showcase-item .cap { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 14px; letter-spacing: 0.02em; line-height: 1.5; text-align: center; }
+.cta-band { background: var(--indigo); color: #fff; border-radius: 28px; padding: 64px 48px; text-align: center; }
+.cta-band h2 { font-size: clamp(2rem, 4.4vw, 3.1rem); color: #fff; }
+.cta-band p { color: rgba(255,255,255,0.82); margin: 16px auto 30px; max-width: 460px; font-size: 18px; }
+.site-footer { border-top: 1px solid var(--line); padding: 64px 0 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+.footer-grid .brand { display: block; margin-bottom: 14px; }
+.site-footer p.fdesc { color: var(--muted); font-size: 15px; max-width: 280px; }
+.footer-col h5 { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; font-weight: 400; }
+.footer-col a { display: block; padding: 6px 0; font-size: 15px; color: var(--ink); }
+.footer-col a:hover { color: var(--indigo); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.footer-bottom small { color: var(--muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+:focus-visible { outline: 3px solid var(--indigo); outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 920px) {
+  .proj-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 700px) {
+  .nav-links { position: absolute; top: 70px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; gap: 0; padding: 8px 22px 18px; display: none; }
+  .nav-links.open { display: flex; }
+  .nav-links a.navlink { padding: 12px 0; width: 100%; font-size: 17px; }
+  .nav-toggle { display: block; }
+  .nav-desktop-cta { padding: 11px 18px; font-size: 15px; }
+  .section { padding: 60px 0; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .cta-band { padding: 48px 26px; }
+}
+@media (max-width: 430px) { .footer-grid { grid-template-columns: 1fr; } body { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="index.html" class="brand">Studio<span class="accent">.</span>Jeju</a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="work.html" class="navlink active" aria-current="page">Work</a>
+      <a href="services.html" class="navlink">Services</a>
+      <a href="about.html" class="navlink">About</a>
+      <a href="contact.html" class="navlink">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary nav-desktop-cta">Book a call</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> Selected work</span>
+    <h1>Work we're proud to ship.</h1>
+    <p class="lede">Real apps, designed and delivered for founders — premium, considered, and built to launch. Here's a look.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Featured projects</span>
+      <h2>A few favorites.</h2>
+      <p>Three products we loved building — with a wider look just below.</p>
+    </div>
+    <div class="proj-grid">
+      <article class="proj-card">
+        <img class="shot" src="images/stick.jpg" alt="STICK habit and accountability app — onboarding screen" width="800" height="1000" loading="lazy">
+        <div class="proj-meta">
+          <span class="scope">Mobile app · Health &amp; habits</span>
+          <h3>STICK</h3>
+          <p>Set goals, stake on yourself, and compete with friends — show up, or the pot splits without you.</p>
+        </div>
+      </article>
+      <article class="proj-card">
+        <img class="shot" src="images/future.jpg" alt="Future payments app — home screen showing money flows" width="800" height="1000" loading="lazy">
+        <div class="proj-meta">
+          <span class="scope">Mobile app · Fintech</span>
+          <h3>Future</h3>
+          <p>A payments app for sending, splitting and tracking every flow of money — budgets and tiers built in.</p>
+        </div>
+      </article>
+      <article class="proj-card">
+        <img class="shot" src="images/medlab.jpg" alt="MedLab health and coaching app — sign-up screens" width="777" height="1100" loading="lazy">
+        <div class="proj-meta">
+          <span class="scope">Mobile app · Health &amp; fitness</span>
+          <h3>MedLab</h3>
+          <p>A men's health and coaching app, from sign-up to subscription — designed to convert.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap banner">
+    <img src="images/desk.jpg" alt="A focus app shown on an iPhone resting on a studio desk" width="1500" height="844" loading="lazy">
+    <p class="cap"><span class="eyebrow"><span class="dot"></span> In the wild</span> Polished down to the details — designed to look at home anywhere it lands.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">A wider look</span>
+      <h2>More of what we've shipped.</h2>
+      <p>From payments to travel to reading communities — a wider selection of screens and App Store creatives.</p>
+    </div>
+    <div class="showcase-grid">
+      <div class="showcase-item">
+        <a href="images/showcase-appstore.jpg" target="_blank" rel="noopener">
+          <img src="images/showcase-appstore.jpg" alt="App Store creatives for Mabe, Sèkèrè Ride and STICK" width="999" height="1300" loading="lazy">
+        </a>
+        <p class="cap">App Store creatives — Mabe, Sèkèrè Ride &amp; STICK</p>
+      </div>
+      <div class="showcase-item">
+        <a href="images/showcase-apps.jpg" target="_blank" rel="noopener">
+          <img src="images/showcase-apps.jpg" alt="A selection of mobile app screens designed by Studio Jeju" width="1492" height="1500" loading="lazy">
+        </a>
+        <p class="cap">Selected screens — STICK, Sèkèrè Ride, MedLab, a book-club app, a merchant sales app &amp; more</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Your project could be next.</h2>
+      <p>Let's design something you'll be proud to launch — beautifully, and fast.</p>
+      <a href="contact.html" class="btn btn-light">Book a call</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand">Studio<span class="accent">.</span>Jeju</a>
+        <p class="fdesc">Premium mobile app &amp; web design for founders. Based in Jeju, South Korea — working worldwide.</p>
+      </div>
+      <div class="footer-col"><h5>Explore</h5><a href="work.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h5>Services</h5><a href="services.html">Mobile app design</a><a href="services.html">Web design</a></div>
+      <div class="footer-col"><h5>Get in touch</h5><a href="contact.html">Book a call</a><a href="mailto:uibybiba@gmail.com">Email us</a><a href="https://instagram.com/uibybiba">Instagram</a></div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2026 Studio Jeju. All rights reserved.</small>
+      <small>Jeju, South Korea · Designing worldwide</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if (toggle && links) {
+      toggle.addEventListener('click', function () {
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+    }
+    var reveals = document.querySelectorAll('.section, .page-hero');
+    reveals.forEach(function (el) { el.classList.add('reveal'); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('in'); }); }
+  })();
+</script>
+
+</body>
+</html>

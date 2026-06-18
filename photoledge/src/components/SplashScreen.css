@@ -1,0 +1,184 @@
+/* Full-screen splash that sits above the main app until it's dismissed */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #e9e6e6;
+  pointer-events: auto;
+}
+
+/* The wooden board fills the splash screen, matching the main app's board */
+.splash-board {
+  position: absolute;
+  inset: 20px 22px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #92613d;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.25);
+}
+
+.splash-board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/photos/mosaic.png");
+  background-repeat: repeat;
+  background-size: 355px 288px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Perspective wrapper so the flap folds in 3D — centered above the board */
+.splash-stage {
+  position: relative;
+  z-index: 1;
+  perspective: 1200px;
+}
+
+/* Shrink the envelope so it fits within narrow / mobile screens */
+@media (max-width: 600px) {
+  .splash-stage {
+    transform: scale(0.62);
+  }
+  .splash-board {
+    inset: 14px;
+  }
+}
+
+.splash-envelope {
+  position: relative;
+  width: 540px;
+  height: 350px;
+  transform-style: preserve-3d;
+}
+
+/* ---- Paper texture, shared by body, pocket and flap front ---- */
+.splash-envelope__body,
+.splash-envelope__pocket,
+.splash-flap__front {
+  /* cream/ivory base + faint linen crosshatch */
+  background-color: #f6efe1;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(120, 100, 70, 0.05) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(120, 100, 70, 0.05) 0 1px, transparent 1px 6px);
+}
+
+/* Envelope body — the back wall; clips photos until they rise above it */
+.splash-envelope__body {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 2px 8px rgba(255, 255, 255, 0.6),
+    inset 0 -14px 32px rgba(120, 90, 50, 0.18),
+    0 36px 70px rgba(50, 32, 16, 0.34);
+}
+
+/* Photos layer sits between the back wall and the front pocket */
+.splash-photos {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.splash-photo-parallax {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -105px;
+  width: 210px;
+}
+
+.splash-polaroid {
+  background: #fff;
+  border: 9px solid #fff;
+  border-radius: 6px;
+  padding: 6px 6px 22px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+}
+
+.splash-polaroid img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 3px;
+  background: #d9d2c4; /* placeholder tint before image loads */
+}
+
+/* Front pocket — the visible front face of the envelope, occludes photo bottoms */
+.splash-envelope__pocket {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 215px;
+  z-index: 3;
+  border-radius: 0 0 10px 10px;
+  /* angled top edge like a real envelope front */
+  clip-path: polygon(0 38%, 50% 0, 100% 38%, 100% 100%, 0 100%);
+  box-shadow: inset 0 8px 18px rgba(120, 90, 50, 0.15);
+}
+
+/* Diagonal fold lines running from the bottom corners up to the centre */
+.splash-fold {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 150%;
+  background: linear-gradient(rgba(120, 90, 50, 0.18), rgba(120, 90, 50, 0.04));
+  transform-origin: bottom center;
+}
+.splash-fold--left {
+  left: 50%;
+  transform: rotate(58deg);
+}
+.splash-fold--right {
+  left: 50%;
+  transform: rotate(-58deg);
+}
+
+/* ---- Flap ---- */
+.splash-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 185px;
+  z-index: 5;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+}
+
+/* Both faces share the flap box; only one points at the viewer at a time */
+.splash-flap__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  box-shadow: 0 6px 14px rgba(60, 40, 20, 0.18);
+}
+
+/* Cream front, visible while the flap is closed — triangle pointing down */
+.splash-flap__front {
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Deep forest-green underside, revealed once the flap folds back.
+   rotateX(180deg) flips it to face the viewer; its clip is mirrored
+   vertically so the triangle still lines up with the front. */
+.splash-flap__inside {
+  transform: rotateX(180deg);
+  clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  background-color: #1f3d2b;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 6px);
+}

@@ -1,0 +1,6 @@
+# Config for the main static "Studio Jeju" site (Netlify base directory = repo root).
+# Each app in a subfolder has its own netlify.toml and is deployed as a
+# separate Netlify site with its Base directory set to that subfolder.
+[build]
+  command = "bash build-site.sh"
+  publish = "_studio_site"
