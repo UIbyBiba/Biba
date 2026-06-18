@@ -3,10 +3,15 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: grid;
-  place-items: center;
+  /* Flex centering keeps the envelope centered even when it's wider than the
+     viewport (mobile) — it overflows both sides equally instead of the grid
+     auto-track overflowing only to the right. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #e9e6e6;
   pointer-events: auto;
+  overflow: hidden;
 }
 
 /* The wooden board fills the splash screen, matching the main app's board */
@@ -37,10 +42,11 @@
   perspective: 1200px;
 }
 
-/* Shrink the envelope so it fits within narrow / mobile screens */
+/* Shrink the whole envelope + fanned photos so they sit comfortably with
+   margins on narrow / mobile screens (affects mobile only). */
 @media (max-width: 600px) {
   .splash-stage {
-    transform: scale(0.62);
+    transform: scale(0.46);
   }
   .splash-board {
     inset: 14px;
